@@ -70,4 +70,6 @@ function setup() {
 
     //Golem1 = new golem(200, 450);
     //Golem2 = new golem(200, 0);
+
+    console.log('Level 0 elements drawn');
 }
