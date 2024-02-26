@@ -116,3 +116,11 @@ function playerMovement() {
     if (kb.pressing('up')) { wizard.moveUp(); }
     if (kb.released('up')) { wizard.stopMovementY(); }
 }
+
+// Respawn function
+function respawnPlayer() {
+    // Changes location back to original position of player
+    wizard.sprite.position.x = 25;
+    wizard.sprite.position.y = 25;
+    // Add any additional game behaviors
+}
