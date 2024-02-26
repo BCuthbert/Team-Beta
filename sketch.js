@@ -7,6 +7,21 @@ var i = 0;
 let electricAnim;
 const electricFrames = 20;
 
+let currentLevel = 0;
+
+
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+
+    // Set up initial level (Level 0)
+    setupLevel0();
+    createGolemGroup();
+
+    // any other setup code y'all wanna put in. 
+
+    // Add a key press event listener
+    window.addEventListener('keydown', keyPressed);
+}
 
 // Loads all animations for sprites in the project.
 function loadanimations() {
@@ -91,8 +106,20 @@ function draw() {
         newGolem = new golem(Math.floor(Math.random() * 401), Math.floor(Math.random() * 401));
     }
 
+    /*
+    if (currentLevel === 0) {
+        import('./level0.js').then(level0 => {
+            // Use level0 as needed
+        }).catch(error => console.error(error));
+    } else if (currentLevel === 1) {
+        import('./level1.js').then(level1 => {
+            // Use level1 as needed
+        }).catch(error => console.error(error));
+    }
+
     // Center the canvas around the player
     translate(width / 2 - wizard.sprite.position.x, height / 2 - wizard.sprite.position.y);
+    */
 
     // Draw the player
     wizard.sprite.draw();
@@ -105,3 +132,86 @@ function draw() {
     castSpell();
     golemBehavior();
 }
+
+/*
+function transitionToLevel1() {
+    // Remove elements from Level 0
+    floor1.removeSprites();
+    floor7.removeSprites();
+    torches.removeSprites();
+    golems.removeSprites();
+
+    // Set up Level 1
+    setupLevel1();
+    createGolemGroupLevel1();
+    wizard.sprite.position.set(50, 50); // Set the initial position of the player in Level 1
+
+    // Optionally, you can set other properties or perform additional setup for Level 1
+
+    // Switch to Level 1
+    currentLevel = 1;
+}
+
+// Key press event handler
+function keyPressed(event) {
+    // Check if the pressed key is "L"
+    if (event.key === 'L') {
+        // Call the transition function when "L" is pressed
+        transitionToLevel1();
+    }
+}
+
+function setupLevel1() {
+    floor1_level1 = new Group();
+    floor7_level1 = new Group();
+    torches_level1 = new Group();
+
+    floor1_level1.w = 10, floor1_level1.h = 10;
+    floor7_level1.w = 10, floor7_level1.h = 10;
+    torches_level1.w = 10, torches_level1.h = 10;
+
+    torches_level1.tile = '!';
+    floor1_level1.tile = '_';
+    floor7_level1.tile = '=';
+
+    floor1_level1.img = 'assets/levelTiles/tile001.png';
+    floor7_level1.img = 'assets/levelTiles/tile007.png';
+    torches_level1.img = 'assets/levelTiles/01.gif';
+
+    floor1_level1.collider = 'kinematic';
+    floor7_level1.collider = 'kinematic';
+    torches_level1.collider = 'kinematic';
+
+    tilesGroup_level1 = new Tiles(
+        [
+            '___==============___',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '__=______________=__',
+            '___==============___'
+        ],
+        50,
+        50,
+        floor7_level1.w + 6,
+        floor7_level1.h + 6,
+        torches_level1.w + 6,
+        torches_level1.h + 6,
+        floor1_level1.w + 6,
+        floor1_level1.h + 6
+    );
+
+    torches_level1.layer = 0;
+    floor7_level1.rotationLock = true;
+
+    // Optionally, you can add more setup code for Level 1 here
+}
+*/
