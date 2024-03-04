@@ -1,62 +1,50 @@
-// Declare variable that will refer to the player object
-var wizard;
-
-// Declare variables for animations
-var idleAnim;
-var runAnim;
+var wizard;                // declare variable that will refer to player object
+var idleAnim;              // declare variable for idle animation
+var runAnim;               // declare variable for run animation
 var emptyAnim;
-var deathAnim;
-var golemIdle;
-var golemRun;
-var fireballAnim;
-var electricAnim;
-var angleShotAnim;
+var state = 0;             // controls state (title screen, level0, level1 etc)
+var startButton;           // variable for title screen start button
+var level0Drawn = 0;       // variable used in drawing level0
 
-// Controls game state (title screen, levels, etc.)
-var state = 0;
 
-// Variable for title screen start button
-var startButton;
 
-// Variable used in drawing level0
-var level0Drawn = 0;
+var i = 0; // for movement test func
 
-// Counter for movement test function
-var i = 0;
-
-// Number of frames for electric animation
+let electricAnim;
 const electricFrames = 20;
 
-// Loads all animations for sprites in the project
+let angleShotAnim;
+
+// Loads all animations for sprites in the project.
 function loadanimations() {
-    // Load idle animation sprite sheet (strip) and separate frames
+    // loads idle animation sprite sheet (strip), and seperates frames
     idleAnim = loadAnimation("assets/idleAnimSheet.png",
         { frameSize: [32, 32], frames: 2 });
-    idleAnim.frameDelay = 18; // Slows down idle animation
+    idleAnim.frameDelay = 18;     // slows down idle animation
 
-    // Load run animation sprite sheet (strip) and separate frames
+
+    // loads run animation sprite sheet (strip), and seperates frames
     runAnim = loadAnimation("assets/runAnimSheet.png",
         { frameSize: [32, 32], frames: 6 });
 
-    // Load death animation sprite sheet and separate frames
+    //loads death animation sprite sheet and seperates frames
     deathAnim = loadAnimation("assets/deathAnimSheet.png",
         { frameSize: [32, 32], frames: 10 });
 
-    // Load empty animation sprite sheet and separate frames
     emptyAnim = loadAnimation("assets/emptyAnim.png",
-        { frameSize: [32, 32], frames: 1 });
+    { frameSize: [32, 32], frames: 1 });
 
-    // Load idle animation for golem enemy
+    // loads idle animation for golem enemy
     golemIdle = loadAnimation("assets/golemIdle.png",
         { framesize: [16, 16], frames: 4 });
     golemIdle.frameDelay = 17;
 
-    // Load run animation for golem enemy
+    // loads run animation
     golemRun = loadAnimation("assets/golemIdle.png",
         { framesize: [16, 16], frames: 4 });
     golemRun.frameDelay = 5;
 
-    // Load fireball animation
+
     fireballAnim = loadAnimation(
         'assets/fireball/FB001.png',
         'assets/fireball/FB002.png',
@@ -65,7 +53,6 @@ function loadanimations() {
     );
     fireballAnim.frameDelay = 15;
 
-    // Load electric animation
     electricAnim = loadAnimation(
         "assets/electric/tile1.png",
         "assets/electric/tile2.png",
@@ -74,25 +61,26 @@ function loadanimations() {
     );
     electricAnim.frameDelay = electricFrames;
 
-    // Load angle shot animation
     angleShotAnim = loadAnimation(
         "assets/tile001.png",
         "assets/tile002.png",
         "assets/tile003.png",
         "assets/tile004.png"
     );
+
     angleShotAnim.frameDelay = 15;
+    // angleShotAnim.scale = 0.2;
+
 }
 
-// Tests movement functions
+// tests movement functions - not sure if this is good enough or not (never done TDD tbh)
 function testPlayerMovement(i) {
-    if (i < 100) { wizard.moveRight(); }
-    if (i > 100 && i < 200) { wizard.moveDown(); }
-    if (i > 200 && i < 300) { wizard.moveLeft(); }
-    if (i > 300) { wizard.moveUp(); }
+    if (i < 100) { wizard.moveRight(); };
+    if (i > 100 && i < 200) { wizard.moveDown(); };
+    if (i > 200 && i < 300) { wizard.moveLeft(); };
+    if (i > 300) { wizard.moveUp(); };
 }
 
-// Setup start button
 function setupButtons() {
     startButton = new Button({
         x: width/2, y: height - 50,
@@ -102,16 +90,15 @@ function setupButtons() {
         on_press() {
             state++;
         }
-    });
+    })
 }
 
-// Preload images for animation
+// preload images for animation - executed once
 function preload() {
     loadanimations();
     preloadLevel1();
 }
 
-// Setup canvas and game objects
 function setup() {
     createCanvas(windowWidth, windowHeight);
     wizard = new player();
@@ -119,12 +106,22 @@ function setup() {
     createGolemGroup();
 }
 
-// Draw function
+// Currently implemented in level0
+// // setup canvas and player sprite - executed once
+// function setup() {
+//     createCanvas(windowWidth, windowHeight);
+//     wizard = new player();
+//     tempSprite = new Sprite();
+//     wizard.sprite.overlaps(tempSprite);
+// }
+
+var test;
+
+
 function draw() {
     clear();
 
     if (state == 0) {
-        // Title screen logic
         background("#5cb8ff");
         fill(0);
         textSize(50);
@@ -135,19 +132,16 @@ function draw() {
     } else if (state == 1) {
         if (!level0Drawn) {
             setupLevel1();
-            level0Drawn = true; // Ensure setupLevel1() is only called once
+            level0Drawn = true;
         }
 
-        // Apply translation for camera follow
         let camX = constrain(wizard.sprite.position.x - windowWidth / 2, 0, mapPixelWidth - windowWidth);
         let camY = constrain(wizard.sprite.position.y - windowHeight / 2, 0, mapPixelHeight - windowHeight);
         translate(-camX, -camY);
 
-        // Draw map and player
         drawLevel1();
         wizard.sprite.draw();
 
-        // Other game logic...
         playerMovement();
         if (kb.presses('b')) {
             let newGolem = new golem(Math.floor(Math.random() * 401), Math.floor(Math.random() * 401));
