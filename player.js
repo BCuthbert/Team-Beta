@@ -6,6 +6,7 @@ export function makePlayer(p) {
         currentAnimation: null,
         animations: {},
         speed: 3,
+        isDead: false,
 
 
 
@@ -60,16 +61,16 @@ export function makePlayer(p) {
 
         stopMovementX() {
             this.sprite.vel.x = 0;
-            if (!this.isMoving()) {
+            //if (!this.isMoving()) {
                 this.sprite.changeAni(this.animations.idle);
-            }
+            //}
         },
 
         stopMovementY() {
             this.sprite.vel.y = 0;
-            if (!this.isMoving()) {
+            //if (!this.isMoving()) {
                 this.sprite.changeAni(this.animations.idle);
-            }
+            //}
         },
 
         movement() {
@@ -128,8 +129,29 @@ export function makePlayer(p) {
             if (this.movingLat && this.movingVert) { this.normalize(); }
         },
 
+        
+        die() {
+            // stop player movement
+            this.sprite.vel.x = 0;
+            this.sprite.vel.y = 0;
 
+            // changes animation
+            this.sprite.changeAni(this.animations.death)
+            //this.sprite.animation.frame = 0;
 
+            // play the death animation once
+            this.sprite.animation.looping = false;
+
+            this.isDead = true;
+            console.log('dead');
+        },
+
+        respawn() {
+            this.isDead = false;
+            this.health = 1;
+            this.sprite.position.set(25, 25);
+            this.sprite.changeAni(this.animations.idle);
+        },
     };
 }
 

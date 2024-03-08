@@ -19,7 +19,18 @@ new p5((p) => {
     p.draw = () => {
         p.clear();
         p.background('#fce1b6');
-        wizard.movement();
+        if (wizard.isDead == false) {
+            wizard.movement();
+        }
+
+        if (p.kb.presses('y')) {
+            wizard.die();
+        }
+        console.log('back');
+
+        if (p.kb.presses('r')) {
+            wizard.respawn();
+        }
     }
 
     p.windowResized = () => {
