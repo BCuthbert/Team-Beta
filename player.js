@@ -148,7 +148,7 @@ export function makePlayer(p) {
 
         respawn() {
             this.isDead = false;
-            this.health = 1;
+            //this.health = 1;
             this.sprite.position.set(25, 25);
             this.sprite.changeAni(this.animations.idle);
         },
