@@ -142,37 +142,47 @@ var test;
 var respawnState = false; // New variable to track respawn state
 
 function draw() {
-    // state = 0 corresponds to start screen
+    // Clear the canvas
+    background(255);
+
+    // Check the game state
     if (state == 0) {
-        background("#5cb8ff");   // arbitrary color choice, can be changed
+        // Draw start screen
+        background("#5cb8ff");
         fill(0);
         textSize(50);
         textAlign(CENTER);
         text("The Wizard's Quest", width/2, height/2);
         startButton.draw();
         wizard.sprite.changeAni(emptyAnim);
-    }
-    // state = 1 corresponds to level0
-    if (state == 1) {
-        background("#fce1b6");   // arbitrary color choice, can be changed
-        if (level0Drawn == 0) { drawLevel0(); }   // makes sure level sprites only get drawn once - breaks otherwise
-        textAlign(LEFT);
-        text('WASD to move\n' +
-        'Click to attack (mouse to aim)\n' +
-        'Space to shoot fireball sideways\n' +
-        'Press 1 to change attack\n' +
-        'Press b to spawn golem enemy\n' +
-        'Hold o to activate golem behavior (must be holding for attacks to effect them)\n' +
-        'Press y to die\n' +
-        'Press r to respawn\n' +
-        'Press t to teleport\n'+ 
-        'Press i to use shield',50, 100);
+    } else if (state == 1) {
+        // Draw level
+        background("#fce1b6");
+        if (level0Drawn == 0) { 
+            drawLevel0(); 
+            level0Drawn = 1;  // Set the flag to indicate that the level has been drawn
+        }
+        
+            textAlign(LEFT);
+            text('WASD to move\n' +
+            'Click to attack (mouse to aim)\n' +
+            'Space to shoot fireball sideways\n' +
+            'Press 1 to change attack\n' +
+            'Press b to spawn golem enemy\n' +
+            'Hold o to activate golem behavior (must be holding for attacks to effect them)\n' +
+            'Press y to die\n' +
+            'Press r to respawn\n' +
+            'Press t to teleport\n'+ 
+            'Press i to use shield',50, 100);
+
+        // Center the canvas around the player
+        translate(width / 2 - wizard.sprite.position.x, height / 2 - wizard.sprite.position.y);
+
+        // Draw the level sprites without translation
+        tilesGroup.draw();
     }
 
-    // Center the canvas around the player
-    translate(windowWidth / 2 - wizard.sprite.position.x, windowHeight / 2 - wizard.sprite.position.y);
-
-    // Draw the player
+    // Draw the player without translation
     wizard.sprite.draw();
 
     playerMovement();
