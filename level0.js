@@ -51,6 +51,9 @@ function drawLevel0() {
         floor1.h + 6
     );
 
+    // Center the canvas around the player
+    translate(width / 2 - wizard.sprite.position.x, height / 2 - wizard.sprite.position.y);
+
     // tilesGroup.layer = 1;
     torches.layer = 0;
     // wizard.sprite.layer = 99;
@@ -59,6 +62,7 @@ function drawLevel0() {
     wizard.sprite.bounciness = 0;
     wizard.sprite.overlaps(torches);
     wizard.sprite.overlaps(floor1);
+
 
     //createGolemGroup();
     //createGolem(200, 20);
