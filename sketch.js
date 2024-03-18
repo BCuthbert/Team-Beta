@@ -10,6 +10,8 @@ let electricAnim;
 const electricFrames = 20;
 
 let angleShotAnim;
+let PotionPickupSound;
+let golemFootstep;
 
 // Loads all animations for sprites in the project.
 function loadanimations() {
@@ -120,6 +122,8 @@ function preload() {
     loadanimations();
     bombImg = loadImage('assets/items/testItem1.png');
     potionImg = loadImage('assets/items/testItem2.png');
+    golemFootstep = loadSound('assets\sounds\giant-footsteps-39193.mp3');
+    PotionPickupSound = loadSound('assets\sounds\bottle-clink-101000.mp3');
 }
 
 function setup() {
