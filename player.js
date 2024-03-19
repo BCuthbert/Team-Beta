@@ -24,6 +24,12 @@ function createItemGroup() {
     potions.itemType = 'potion';
 
     wizard.sprite.overlaps(items, collectItem);
+    
+
+    //not sure if completely correct, will check for proper implementation
+    //if(wizard.sprite.overlaps(items, collectItem)){
+       // PotionPickupSound.play();
+    //}
 }
 
 function collectItem(wizard, item) {
