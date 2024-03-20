@@ -88,6 +88,7 @@ export function makePlayer(p) {
         invincible: false,
         camOffset: cameraOffset,
         inventory: [],
+        disabled: true,
 
         draw() {
             p.camera.on();
@@ -95,7 +96,7 @@ export function makePlayer(p) {
             p.camera.y = this.sprite.position.y;
             p.camera.zoom = this.camOffset;
             this.spell.draw(this.sprite.position.x, this.sprite.position.y, this.attackMode);
-            if (!this.isDead) {
+            if (!this.isDead && !this.disabled) {
                 // if player, is dead, they cannot cast, die again, move, or teleport
                 this.movement();
                 if (p.kb.presses('y')) {
@@ -142,11 +143,21 @@ export function makePlayer(p) {
 
         },
 
+        disable() {
+            this.sprite.visible = false;
+            this.disabled = true;
+        },
+
+        enable() {
+            this.sprite.visible = true;
+            this.disabled = false;
+        },
+
         normalizeMovement() {
             this.sprite.vel.normalize().mult(this.speed);
         },
 
-        setup() {
+        preload() {
             this.spell = new makeSpell(p, this.attackMode);
             this.spell.setup();
             this.loadAnimations();

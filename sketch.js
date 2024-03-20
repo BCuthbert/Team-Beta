@@ -3,7 +3,7 @@
 export const cameraOffset = 1.6;
 
 import { map } from "./map.js";
-import { GameState } from "./gamestate.js";
+// import { GameState } from "./gamestate.js";
 import { makePlayer } from "./player.js";
 import { overlay } from "./overlay.js";
 
@@ -13,26 +13,27 @@ new p5((p) => {
     const Wizard = new makePlayer(p);
     const Map = new map(p);
     const Overlay = new overlay(p);
-    const Gamestate = new GameState(p);
+    // const Gamestate = new GameState(p);
 
     // *preload is async*
     p.preload = () => {
-        Wizard.setup();
-        Map.preload(Gamestate.getState());
+        Wizard.preload();
+        Map.preload();
     }
 
     p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight);
         Overlay.setup();
-        Map.setup(Gamestate.getState());
     }
 
     p.draw = () => {
         // p.ambientLight(50);
+
         p.clear();
         p.background('#fce1b6');
         Wizard.draw();
-        Map.draw();
+        Map.draw(Wizard);
+
         // overlayText.draw();
     }
 
