@@ -88,14 +88,17 @@ export function makePlayer(p) {
         invincible: false,
         camOffset: cameraOffset,
         inventory: [],
-        disabled: true,
+        disabled: false,
 
         draw() {
             p.camera.on();
             p.camera.x = this.sprite.position.x;
             p.camera.y = this.sprite.position.y;
             p.camera.zoom = this.camOffset;
-            this.spell.draw(this.sprite.position.x, this.sprite.position.y, this.attackMode);
+
+            // this.spell.draw(this.sprite.position.x, this.sprite.position.y, this.attackMode);
+            this.spell.draw();
+
             if (!this.isDead && !this.disabled) {
                 // if player, is dead, they cannot cast, die again, move, or teleport
                 this.movement();
@@ -114,11 +117,7 @@ export function makePlayer(p) {
                 if (p.kb.presses('1')) {
                     // switch attack mode (to be changed to keybinds later)
                     this.attackMode++;
-                    if (this.attackMode == 2) {
-                        // if attackmode is 2(angleshot), cast, but cannot go above, because only reacts AFTER mouse press
-                        this.spell.cast(this.sprite.position.x, this.sprite.position.y, this.attackMode);
-
-                    } else if (this.attackMode > 2) {
+                    if (this.attackMode > 2) {
 
                         this.attackMode = 0;
 
@@ -163,7 +162,6 @@ export function makePlayer(p) {
             this.loadAnimations();
             this.sprite.rotationLock = true;
             this.sprite.addAni(this.animations.idle);
-            this.sprite.debug = true;
         },
 
 

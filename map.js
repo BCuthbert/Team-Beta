@@ -24,9 +24,6 @@ export function map(p) {
             if (this.state.getState() == 'menu') {
                 this.btnref.style("background-color", "#ff5959");
             }
-            if (this.state.getState() == 'level1') {
-                this.preloadLevel1();
-            }
         },
 
         setup() {
