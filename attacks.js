@@ -22,7 +22,18 @@ export function makeSpell(p, type) {
         alreadyCollided: false,
 
         // need draw to check collisions between angleshot and angles
-        draw() {
+        draw(x, y) {
+
+            if (this.angles.length == 2) {
+                p.stroke(0);
+                p.line(x, y, this.angles[0].position.x, this.angles[0].position.y);
+                p.line(this.angles[0].position.x, this.angles[0].position.y, this.angles[1].position.x, this.angles[1].position.y);
+            } else if (this.angles.length == 1) {
+                p.stroke(0);
+                p.drawingContext.setLineDash([20, 20]);
+                // console.log("HERE");
+                p.line(x, y, this.angles[0].position.x, this.angles[0].position.y);
+            }
 
             if (this.angleProjectileRef != null) {
 
@@ -89,7 +100,9 @@ export function makeSpell(p, type) {
         },
 
         electric(x, y) {
-            this.spellSprite = new p.Sprite(x, y);
+            this.spellSprite = new p.Sprite(x, y, 80, 20);
+            this.spellSprite.scale = 0.7;
+            this.spellSprite.offset.x = 40;
             this.spellSprite.collider = "none";
             this.spellSprite.addAni(this.spellAnims.electric);
             p.angleMode(p.RADIANS);
@@ -102,8 +115,8 @@ export function makeSpell(p, type) {
         },
 
         fireball(x, y) {
-            this.spellSprite = new p.Sprite(x, y);
-            this.spellSprite.debug = true;
+            this.spellSprite = new p.Sprite(x, y, 35);
+            this.spellSprite.offset.x = 15;
             this.spellSprite.collider = "none";
             this.spellSprite.addAni(this.spellAnims.fireball);
             p.angleMode(p.RADIANS);

@@ -96,8 +96,7 @@ export function makePlayer(p) {
             p.camera.y = this.sprite.position.y;
             p.camera.zoom = this.camOffset;
 
-            // this.spell.draw(this.sprite.position.x, this.sprite.position.y, this.attackMode);
-            this.spell.draw();
+            this.spell.draw(this.sprite.position.x, this.sprite.position.y);
 
             if (!this.isDead && !this.disabled) {
                 // if player, is dead, they cannot cast, die again, move, or teleport
