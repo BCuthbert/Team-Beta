@@ -10,19 +10,22 @@ import { overlay } from "./overlay.js";
 
 
 new p5((p) => {
-    const Wizard = new makePlayer(p);
+    //const Wizard = new makePlayer(p);
+    let Wizard; //just declare a variable, not instantiating it immediately
     const Map = new map(p);
     const Overlay = new overlay(p);
     const Gamestate = new GameState(p);
 
     // *preload is async*
     p.preload = () => {
-        Wizard.setup();
+        //Wizard.setup();
         Map.preload(Gamestate.getState());
     }
 
     p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight);
+        Wizard = new makePlayer(p, Map); //passing the Map object
+        Wizard.setup(); //instantiating the Wizard here
         Overlay.setup();
         Map.setup(Gamestate.getState());
     }

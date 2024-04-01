@@ -33,8 +33,27 @@ export function map(p) {
             }
         },
 
-
-
+        isWallTile(tileX, tileY) {
+            // Iterate through all wall chunks
+            for (let chunk of this.wallChunks) {
+                // Calculate the boundaries of this chunk
+                const chunkStartX = chunk.x;
+                const chunkEndX = chunk.x + chunk.width;
+                const chunkStartY = chunk.y;
+                const chunkEndY = chunk.y + chunk.height;
+        
+                // Check if the given tile coordinates are within the range of the current chunk
+                if (tileX >= chunkStartX && tileX < chunkEndX && tileY >= chunkStartY && tileY < chunkEndY) {
+                    // If so, calculate the index of the tile in the chunk data array
+                    const index = (tileY - chunk.y) * chunk.width + (tileX - chunk.x);
+                    // Check if the tile ID at this position is not 0 (assuming ID 0 represents no wall)
+                    if (chunk.data[index] !== 0) {
+                        return true; // It's a wall tile
+                    }
+                }
+            }
+            return false; // not a wall tile
+        },
 
         draw() {
             p.background("#666666");
