@@ -32,7 +32,7 @@ export function map(p) {
             this.mapHeight = this.mapData.height;
             this.mapPixelWidth = this.mapWidth * this.tileWidth;
             this.mapPixelHeight = this.mapHeight * this.tileHeight;
-            if (level == 'level1') {
+            if (this.state.getState() == 'level1') {
                 this.parseLayers();
 
             }
