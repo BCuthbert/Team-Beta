@@ -10,19 +10,23 @@ import { overlay } from "./overlay.js";
 
 
 new p5((p) => {
-    const Wizard = new makePlayer(p);
+    //const Wizard = new makePlayer(p);
     const Map = new map(p);
+    const Wizard = new makePlayer(p, Map);
     const Overlay = new overlay(p);
     // const Gamestate = new GameState(p);
 
     // *preload is async*
     p.preload = () => {
+
         Wizard.preload();
         Map.preload();
     }
 
     p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight);
+        // Wizard = new makePlayer(p, Map); //passing the Map object
+        // Wizard.setup(); //instantiating the Wizard here
         Overlay.setup();
     }
 

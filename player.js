@@ -74,7 +74,7 @@ import { makeSpell } from "./attacks.js";
 import { cameraOffset } from "./sketch.js";
 
 
-export function makePlayer(p) {
+export function makePlayer(p, Map) { //Receive map object
     return {
         sprite: new p.Sprite(25, 25, 20, 32),
         currentAnimation: null,
@@ -88,6 +88,7 @@ export function makePlayer(p) {
         invincible: false,
         camOffset: cameraOffset,
         inventory: [],
+        map: Map,//Store Map objects
         disabled: false,
 
         draw() {
@@ -206,23 +207,63 @@ export function makePlayer(p) {
 
         },
 
+
         moveRight() {
-            this.sprite.vel.x = this.speed;
-            this.sprite.mirror.x = false;
+            const newX = this.sprite.position.x + this.speed;
+            const newY = this.sprite.position.y;
+            //Convert to tile coordinates
+            const tileX = Math.floor(newX / this.map.tileWidth);
+            const tileY = Math.floor(newY / this.map.tileHeight);
+
+            //Check if the new position will hit the wall
+            if (!this.map.isWallTile(tileX, tileY)) {
+                this.sprite.vel.x = this.speed;
+                this.sprite.mirror.x = false;
+            } else {
+                //If it hits a wall, stop moving
+                this.sprite.vel.x = 0;
+            }
         },
 
         moveLeft() {
-            this.sprite.vel.x = -this.speed;
-            //this.sprite.changeAni(runAnim);
-            this.sprite.mirror.x = true;
+            const newX = this.sprite.position.x - this.speed;
+            const newY = this.sprite.position.y;
+            const tileX = Math.floor(newX / this.map.tileWidth);
+            const tileY = Math.floor(newY / this.map.tileHeight);
+
+            if (!this.map.isWallTile(tileX, tileY)) {
+                this.sprite.vel.x = -this.speed;
+                this.sprite.mirror.x = true;
+            } else {
+                this.sprite.vel.x = 0;
+            }
         },
 
         moveUp() {
-            this.sprite.vel.y = -this.speed;
+            const newX = this.sprite.position.x;
+            const newY = this.sprite.position.y - this.speed;
+            const tileX = Math.floor(newX / this.map.tileWidth);
+            const tileY = Math.floor(newY / this.map.tileHeight);
+
+            if (!this.map.isWallTile(tileX, tileY)) {
+                this.sprite.vel.y = -this.speed;
+            } else {
+                this.sprite.vel.y = 0;
+            }
         },
 
+
         moveDown() {
-            this.sprite.vel.y = this.speed;
+            const newX = this.sprite.position.x;
+            const newY = this.sprite.position.y + this.speed;
+            const tileX = Math.floor(newX / this.map.tileWidth);
+            const tileY = Math.floor(newY / this.map.tileHeight);
+
+            if (!this.map.isWallTile(tileX, tileY)) {
+                this.sprite.vel.y = this.speed;
+            } else {
+                this.sprite.vel.y = 0;
+            }
         },
 
         normalize() {
