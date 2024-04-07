@@ -32,7 +32,6 @@ def Attack():
 
 def testSetup():
   startButton = driver.find_element(By.XPATH, "/html/body/button")
-  print(startButton.text) 
   #asserts that the button is on the screen 
   assert startButton.text == 'Begin Quest'; 
   startButton.click()
@@ -40,20 +39,29 @@ def testSetup():
   time.sleep(5)
 
   element_to_click = driver.find_element(By.ID, "defaultCanvas0")
+  #asserts that the p5 game has actually loaded
   assert element_to_click.get_attribute("class") == "p5Canvas"
 
 def testMovement():
   #test basic movement 
-  keyPress('d', 1)
+  keyPress('d', 0.07)
   keyPress('s', 1)
-  keyPress('w', 0.5)
+  keyPress('d', 1)
   keyPress('a', 0.25)
+
+  keyPress('w', 0.5)
+  keyPress('a', 0.5)
+  keyPress('s', 0.5)
+  keyPress('d', 0.5)
 
 def testBasicAttacks():
 #test attacks 
   Attack()
   keyPress('1', 0.1)
   Attack()
+  keyPress('1', 0.1)
+  Attack() 
+  time.sleep(0.5)
 
 def testSpecialActions():
   #test death through debug keybind
@@ -76,6 +84,7 @@ if __name__ == "__main__":
 #navigate to website 
   driver.get("https://bcuthbert.github.io/Team-Beta/")
 
+  #If you make this time shorter, the entire test will not run 
   time.sleep(2)
 
   testSetup()
@@ -87,6 +96,3 @@ if __name__ == "__main__":
   time.sleep(2)
 
   driver.quit() 
-
-
-
