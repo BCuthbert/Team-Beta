@@ -1,11 +1,11 @@
 
-
 export const cameraOffset = 1.6;
 
 import { map } from "./map.js";
 // import { GameState } from "./gamestate.js";
 import { makePlayer } from "./player.js";
 import { overlay } from "./overlay.js";
+import { coin } from "./coin.js";
 
 
 
@@ -14,6 +14,7 @@ new p5((p) => {
     const Map = new map(p);
     const Wizard = new makePlayer(p, Map);
     const Overlay = new overlay(p);
+    const Coin = new coin(p);
     // const Gamestate = new GameState(p);
 
     // *preload is async*
@@ -21,6 +22,7 @@ new p5((p) => {
 
         Wizard.preload();
         Map.preload();
+        Overlay.preload();
     }
 
     p.setup = () => {
@@ -28,15 +30,28 @@ new p5((p) => {
         // Wizard = new makePlayer(p, Map); //passing the Map object
         // Wizard.setup(); //instantiating the Wizard here
         Overlay.setup();
+        Coin.setup();
+        // Coin.createCoin(100, 100);
+
     }
 
     p.draw = () => {
         // p.ambientLight(50);
 
+        p.camera.on();          // turns camera on (required for coinCount overlay)
+
         p.clear();
         p.background('#fce1b6');
         Wizard.draw();
         Map.draw(Wizard);
+        Wizard.sprite.overlaps(Coin.coins, Wizard.collectCoin);
+        console.log('millis: ' + p.millis());
+        if (p.millis() % 100 == 0) {
+            Coin.createCoin(Math.floor(Math.random() * 401), Math.floor(Math.random() * 401));
+        }
+
+        p.camera.off();         // turns camera off before drawing overlay so that it moves with player 
+        Overlay.draw();
 
         // overlayText.draw();
     }
