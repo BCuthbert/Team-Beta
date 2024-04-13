@@ -7,18 +7,18 @@ import time
 
 #Simulates single key input
 #Used exclusively as component in keyPress function 
-def singleKeyInput(keyToPress, keyboardEvent):
-  jsEvent = f"window.dispatchEvent(new KeyboardEvent('{keyboardEvent}', {{'key':'{keyToPress}'}}));"
-  driver.execute_script(jsEvent)
+def single_key_input(key_to_press, keyboard_event):
+  js_event = f"window.dispatchEvent(new KeyboardEvent('{keyboard_event}', {{'key':'{key_to_press}'}}));"
+  driver.execute_script(js_event)
   time.sleep(0.1)
 
 #Simulates user input of key on keyboard, including key press down, holding, and key press release
-def keyPress(keyToPress, timeToWait):
-  singleKeyInput(keyToPress, 'keydown')
+def key_press(keyToPress, timeToWait):
+  single_key_input(keyToPress, 'keydown')
   time.sleep(timeToWait)
-  singleKeyInput(keyToPress, 'keyup')
+  single_key_input(keyToPress, 'keyup')
 
-def Attack():
+def attack():
   actions = ActionChains(driver)
 
   #Change position of mouse
@@ -30,12 +30,12 @@ def Attack():
 
   actions.perform()
 
-def testSetup():
-  startButton = driver.find_element(By.XPATH, "/html/body/button")
+def test_setup():
+  start_button = driver.find_element(By.XPATH, "/html/body/button")
   #asserts that the button is on the screen 
-  assert startButton.text == 'Begin Quest' 
-  assert startButton.is_displayed()
-  startButton.click()
+  assert start_button.text == 'Begin Quest' 
+  assert start_button.is_displayed()
+  start_button.click()
 
   time.sleep(5)
 
@@ -43,39 +43,39 @@ def testSetup():
   #asserts that the p5 game has actually loaded
   assert element_to_click.get_attribute("class") == "p5Canvas"
 
-def testMovement():
+def test_movement():
   #test basic movement 
-  keyPress('d', 0.07)
-  keyPress('s', 1)
-  keyPress('d', 1)
-  keyPress('a', 0.25)
+  key_press('d', 0.07)
+  key_press('s', 1)
+  key_press('d', 1)
+  key_press('a', 0.25)
 
-  keyPress('w', 0.5)
-  keyPress('a', 0.5)
-  keyPress('s', 0.5)
-  keyPress('d', 0.5)
+  key_press('w', 0.5)
+  key_press('a', 0.5)
+  key_press('s', 0.5)
+  key_press('d', 0.5)
 
-def testBasicAttacks():
+def test_basic_attacks():
 #test attacks 
-  Attack()
-  keyPress('1', 0.1)
-  Attack()
-  keyPress('1', 0.1)
-  Attack() 
+  attack()
+  key_press('1', 0.1)
+  attack()
+  key_press('1', 0.1)
+  attack() 
   time.sleep(0.5)
 
-def testSpecialActions():
+def test_special_actions():
   #test death through debug keybind
-  keyPress('y', 3)
+  key_press('y', 3)
 
   #test respawn through debug keybind
-  keyPress('r', 1)
+  key_press('r', 1)
 
   #test teleport through debug keybind
-  keyPress('t', 0.25)
+  key_press('t', 0.25)
 
   #test shield through debug keybind
-  keyPress('i', 0.25)
+  key_press('i', 0.25)
 
 if __name__ == "__main__":
 #Assumes selenium is correctly installed in the PATH
@@ -88,10 +88,10 @@ if __name__ == "__main__":
   #If you make this time shorter, the entire test will not run 
   time.sleep(2)
 
-  testSetup()
-  testMovement()
-  testBasicAttacks()
-  testSpecialActions()
+  test_setup()
+  test_movement()
+  test_basic_attacks()
+  test_special_actions()
 
 
   time.sleep(2)
