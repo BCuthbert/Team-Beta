@@ -33,7 +33,8 @@ def Attack():
 def testSetup():
   startButton = driver.find_element(By.XPATH, "/html/body/button")
   #asserts that the button is on the screen 
-  assert startButton.text == 'Begin Quest'; 
+  assert startButton.text == 'Begin Quest' 
+  assert startButton.is_displayed()
   startButton.click()
 
   time.sleep(5)
