@@ -18,7 +18,7 @@ def keyPress(keyToPress, timeToWait):
   time.sleep(timeToWait)
   singleKeyInput(keyToPress, 'keyup')
 
-def testAttack():
+def Attack():
   actions = ActionChains(driver)
 
   #Change position of mouse
@@ -30,45 +30,69 @@ def testAttack():
 
   actions.perform()
 
+def testSetup():
+  startButton = driver.find_element(By.XPATH, "/html/body/button")
+  #asserts that the button is on the screen 
+  assert startButton.text == 'Begin Quest'; 
+  startButton.click()
 
+  time.sleep(5)
 
+  element_to_click = driver.find_element(By.ID, "defaultCanvas0")
+  #asserts that the p5 game has actually loaded
+  assert element_to_click.get_attribute("class") == "p5Canvas"
+
+def testMovement():
+  #test basic movement 
+  keyPress('d', 0.07)
+  keyPress('s', 1)
+  keyPress('d', 1)
+  keyPress('a', 0.25)
+
+  keyPress('w', 0.5)
+  keyPress('a', 0.5)
+  keyPress('s', 0.5)
+  keyPress('d', 0.5)
+
+def testBasicAttacks():
+#test attacks 
+  Attack()
+  keyPress('1', 0.1)
+  Attack()
+  keyPress('1', 0.1)
+  Attack() 
+  time.sleep(0.5)
+
+def testSpecialActions():
+  #test death through debug keybind
+  keyPress('y', 3)
+
+  #test respawn through debug keybind
+  keyPress('r', 1)
+
+  #test teleport through debug keybind
+  keyPress('t', 0.25)
+
+  #test shield through debug keybind
+  keyPress('i', 0.25)
+
+if __name__ == "__main__":
 #Assumes selenium is correctly installed in the PATH
 #Path errors can be caused by this line
-driver = webdriver.Chrome()
+  driver = webdriver.Chrome()
 
 #navigate to website 
-driver.get("https://bcuthbert.github.io/Team-Beta/")
-time.sleep(5)
+  driver.get("https://bcuthbert.github.io/Team-Beta/")
 
-#test basic movement 
-keyPress('d', 1)
-keyPress('s', 1)
-keyPress('w', 0.5)
-keyPress('a', 0.25)
+  #If you make this time shorter, the entire test will not run 
+  time.sleep(2)
 
-#Get element to click for attack tests
-element_to_click = driver.find_element(By.ID, "defaultCanvas0")
-
-#test attacks 
-testAttack()
-keyPress('1', 0.1)
-testAttack()
-
-#test death through debug keybind
-keyPress('y', 3)
-
-#test respawn through debug keybind
-keyPress('r', 1)
-
-#test teleport through debug keybind
-keyPress('t', 0.25)
-
-#test shield through debug keybind
-keyPress('i', 0.25)
-
-#Add spawning enemy once implemented 
+  testSetup()
+  testMovement()
+  testBasicAttacks()
+  testSpecialActions()
 
 
-time.sleep(2)
+  time.sleep(2)
 
-driver.quit() 
+  driver.quit() 

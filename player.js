@@ -73,6 +73,7 @@
 import { makeSpell } from "./attacks.js";
 import { cameraOffset } from "./sketch.js";
 
+export var coinCount = 0;
 
 export function makePlayer(p, Map) { //Receive map object
     return {
@@ -90,6 +91,7 @@ export function makePlayer(p, Map) { //Receive map object
         inventory: [],
         map: Map,//Store Map objects
         disabled: false,
+        //coinCount: 0,
 
         draw() {
             p.camera.on();
@@ -394,6 +396,12 @@ export function makePlayer(p, Map) { //Receive map object
 
         deleteSpell(id) {
 
+        },
+
+        collectCoin(player, coin) {
+            coinCount++;
+            console.log(coinCount);
+            coin.remove();
         }
 
 
