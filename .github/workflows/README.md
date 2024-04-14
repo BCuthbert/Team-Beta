@@ -1,5 +1,6 @@
 To run Selenium test on local device:
   Chromedriver must be installed and PATH accessible 
+  Google Chrome must also be installed 
 
   commands to run selenium tests OTHER than behave:
   1. pip install -r requirements.txt 
