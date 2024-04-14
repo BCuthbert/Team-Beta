@@ -36,5 +36,7 @@ jobs:
         pip install behave
 
     - name: Run Behave Tests
-      run: |
-        behave .github/workflows/features
+      run: behave .github/workflows/features
+      env:
+        PYTHONPATH: ${{ github.workspace }}/.github/workflows
+        
