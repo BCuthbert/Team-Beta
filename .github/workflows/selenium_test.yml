@@ -30,3 +30,11 @@ jobs:
         
     - name: Run Selenium test script
       run: python .github/workflows/selenium_wizard_test.py
+
+    - name: Install Python Packages
+      run: |
+        pip install behave
+
+    - name: Run Behave Tests
+      run: |
+        behave features/
