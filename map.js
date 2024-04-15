@@ -1,5 +1,6 @@
 
 import { GameState } from "./gamestate.js";
+import { enemy } from "./enemy.js";
 
 export function map(p) {
     return {
@@ -18,8 +19,11 @@ export function map(p) {
         btnref: p.createButton("Begin Quest"),
         levelLoaded: false,
         loadOnce: false,
+        Enemy: new enemy(p),
 
         preload() {
+            this.Enemy.preload();
+
             this.tilesetsInfo.push(p.loadImage('assets/Maps/Dungeon tileset.png'));
             if (this.state.getState() == 'menu') {
                 this.btnref.style("background-color", "#ff5959");
@@ -27,14 +31,15 @@ export function map(p) {
         },
 
         setup() {
+            this.Enemy.setup();
 
             this.mapWidth = this.mapData.width;
             this.mapHeight = this.mapData.height;
             this.mapPixelWidth = this.mapWidth * this.tileWidth;
             this.mapPixelHeight = this.mapHeight * this.tileHeight;
+
             if (this.state.getState() == 'level1') {
                 this.parseLayers();
-
             }
         },
 
@@ -105,6 +110,19 @@ export function map(p) {
                 } else if (!this.loadOnce) {
                     this.parseLayers();
                     this.loadOnce = true;
+                    this.Enemy.spawn(630, 282);
+
+                    this.Enemy.spawn(160, 616);
+                    this.Enemy.spawn(466, 616);
+                    this.Enemy.spawn(811, 616);
+                    this.Enemy.spawn(1129, 616);
+                    this.Enemy.spawn(1375, 616);
+                    this.Enemy.spawn(955, 253);
+                    this.Enemy.spawn(1123, 253);
+                    this.Enemy.spawn(1333, 196);
+                    this.Enemy.spawn(1252, 196);
+
+
                 } else {
 
                     p.background("#666666");

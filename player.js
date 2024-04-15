@@ -119,6 +119,7 @@ export function makePlayer(p, Map) { //Receive map object
                 if (p.kb.presses('1')) {
                     // switch attack mode (to be changed to keybinds later)
                     this.attackMode++;
+                    // console.log(`X: ${this.sprite.position.x}, Y: ${this.sprite.position.y}`);
                     if (this.attackMode > 2) {
 
                         this.attackMode = 0;

@@ -22,7 +22,7 @@ new p5((p) => {
 
         Wizard.preload();
         Map.preload();
-        Overlay.preload();
+        // Overlay.preload();
     }
 
     p.setup = () => {
@@ -45,7 +45,7 @@ new p5((p) => {
         Wizard.draw();
         Map.draw(Wizard);
         Wizard.sprite.overlaps(Coin.coins, Wizard.collectCoin);
-        console.log('millis: ' + p.millis());
+        // console.log('millis: ' + p.millis());
         if (p.millis() % 100 == 0) {
             Coin.createCoin(Math.floor(Math.random() * 401), Math.floor(Math.random() * 401));
         }
