@@ -1,13 +1,38 @@
+const utils = require('./utils');
+// const map = require('./../maps');
+// const player = require('./../player');
+// const overlay = require('./../overlay');
+// const enemies = require('./../enemy');
+
+// Need to figure out how to run index.html to test values in the game
+
 var assert = require('assert');
+
 describe('Array', function () {
   describe('#indexOf()', function () {
-    it('should return -1 when the value is not present', function () {
-      assert.equal([1, 2, 3].indexOf(4), -1);
-    });
+    it('should have a map.js file', () => {
+      const map = require('./../map.js');
+      assert(map);
+    })
 
-    it('should return -1 when the value is not present', function () {
-        [1, 2, 3].indexOf(5).should.equal(-1);
-        [1, 2, 3].indexOf(0).should.equal(-1);
-    });
+    // Breaks on p5 not defined
+    // it('should have a player.js file', () => {
+    //   const player = require('./../player.js');
+
+    //   assert(player);
+    // })
+
+    it('should have an overlay.js file', () => {
+      const overlay = require('./../overlay.js');
+      assert(overlay);
+    })
+
+    it('should have an enemies.js file', () => {
+      const enemies = require('./../enemies.js');
+      assert(enemies);
+    })
+
+    // pending test below
+    it('Test requirement pending');
   });
 });
