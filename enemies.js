@@ -24,7 +24,7 @@ class enemy {
 }
 */
 
-
+//test
 
 // function to create golem enemy group - run in preload
 function createGolemGroup() {
