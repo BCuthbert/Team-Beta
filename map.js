@@ -20,6 +20,7 @@ export function map(p) {
         levelLoaded: false,
         loadOnce: false,
         Enemy: new enemy(p),
+        notMenu: false,
 
         preload() {
             this.Enemy.preload();
@@ -98,7 +99,8 @@ export function map(p) {
                     this.btnref.remove();
                     w.enable();
                     this.state.changeState(1);
-
+                    this.notMenu = true;
+                    console.log('width: ' + this.mapPixelWidth)
                 })
 
 
