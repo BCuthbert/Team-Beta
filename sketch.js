@@ -46,8 +46,9 @@ new p5((p) => {
         Map.draw(Wizard);
         Wizard.sprite.overlaps(Coin.coins, Wizard.collectCoin);
         // console.log('millis: ' + p.millis());
-        if (p.millis() % 100 == 0) {
-            Coin.createCoin(Math.floor(Math.random() * 401), Math.floor(Math.random() * 401));
+        if (p.millis() % 50 == 0 && Map.notMenu == true) {
+            // Coin.createCoin(Math.floor(Math.random() * 1486), Math.floor(Math.random() * 718));
+            Coin.createCoin(Coin.randomInterval(50, 1486), Coin.randomInterval(75, 718));
         }
 
         p.camera.off();         // turns camera off before drawing overlay so that it moves with player 
@@ -127,4 +128,3 @@ new p5((p) => {
 //         respawnPlayer();
 //         respawnState = true;
 //     }
-

@@ -14,6 +14,7 @@ export function coin(p) {
             this.loadAnimations();
             this.coins.scale = 0.25;
             //this.coins.addAni(this.coinAnim);
+            //this.coins.debug = true;
         },
 
         loadAnimations() {
@@ -29,8 +30,12 @@ export function coin(p) {
         },
 
         createCoin(x, y) {
-            this.sprite = new this.coins.Sprite(x, y);
+            this.sprite = new this.coins.Sprite(x, y, 50, 50);
             this.sprite.addAni(this.coinAnim);
+        },
+
+        randomInterval(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
         },
     };
 }
