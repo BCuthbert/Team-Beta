@@ -16,7 +16,7 @@ jobs:
         
     - name: Install Google Chrome
       run: |
-        choco install googlechrome
+        choco install googlechrome --ignore-checksums -y
       shell: powershell
         
     - name: Install ChromeDriver
