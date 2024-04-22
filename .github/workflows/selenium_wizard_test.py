@@ -86,7 +86,7 @@ if __name__ == "__main__":
   driver.get("https://bcuthbert.github.io/Team-Beta/")
 
   #If you make this time shorter, the entire test will not run 
-  time.sleep(2)
+  time.sleep(3)
 
   test_setup()
   test_movement()
