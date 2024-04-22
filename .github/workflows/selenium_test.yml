@@ -21,7 +21,7 @@ jobs:
         
     - name: Install ChromeDriver
       run: |
-        choco install chromedriver
+        choco install chromedriver --ignore-checksums -y
       shell: powershell
         
     - name: Install Selenium
