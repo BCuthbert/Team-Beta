@@ -154,6 +154,7 @@ export function makeSpell(p, type) {
                 "assets/tile004.png"
             );
             this.spellAnims.angleAnim.frameDelay = 15;
+            console.log("hi")
         },
 
     };
