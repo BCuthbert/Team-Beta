@@ -145,6 +145,14 @@ export function makePlayer(p, Map) { //Receive map object
 
         },
 
+        get posx() {
+            return this.sprite.position.x;
+        },
+        
+        get posy() {
+            return this.sprite.position.y;
+        },
+
         disable() {
             this.sprite.visible = false;
             this.disabled = true;
