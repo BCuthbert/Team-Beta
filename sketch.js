@@ -6,6 +6,7 @@ import { map } from "./map.js";
 import { makePlayer } from "./player.js";
 import { overlay } from "./overlay.js";
 import { coin } from "./coin.js";
+import { enemy } from "./enemy.js";
 
 
 
@@ -15,6 +16,7 @@ new p5((p) => {
     const Wizard = new makePlayer(p, Map);
     const Overlay = new overlay(p);
     const Coin = new coin(p);
+    const Enemy = new enemy(p);
     // const Gamestate = new GameState(p);
 
     // *preload is async*
@@ -22,6 +24,7 @@ new p5((p) => {
 
         Wizard.preload();
         Map.preload();
+        Enemy.preload();
         // Overlay.preload();
     }
 
@@ -31,24 +34,32 @@ new p5((p) => {
         // Wizard.setup(); //instantiating the Wizard here
         Overlay.setup();
         Coin.setup();
+        Enemy.setup();
         // Coin.createCoin(100, 100);
 
     }
 
     p.draw = () => {
         // p.ambientLight(50);
-
+        p.frameRate(35);
         p.camera.on();          // turns camera on (required for coinCount overlay)
 
         p.clear();
         p.background('#fce1b6');
         Wizard.draw();
         Map.draw(Wizard);
+        Enemy.behavior(Wizard);
         Wizard.sprite.overlaps(Coin.coins, Wizard.collectCoin);
         // console.log('millis: ' + p.millis());
-        if (p.millis() % 50 == 0 && Map.notMenu == true) {
+        if (Coin.coins.length < 15 && Map.notMenu == true) {
             // Coin.createCoin(Math.floor(Math.random() * 1486), Math.floor(Math.random() * 718));
             Coin.createCoin(Coin.randomInterval(50, 1486), Coin.randomInterval(75, 718));
+        }
+        if (p.millis() % 100 == 0 && Map.notMenu == true) {
+            Wizard.spells.pop();
+        }
+        if (Enemy.enemies.length < 3 && Map.notMenu == true) {
+            Enemy.spawn(Coin.randomInterval(50, 1486), Coin.randomInterval(75, 718));
         }
 
         p.camera.off();         // turns camera off before drawing overlay so that it moves with player 

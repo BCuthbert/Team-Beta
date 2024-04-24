@@ -145,6 +145,14 @@ export function makePlayer(p, Map) { //Receive map object
 
         },
 
+        get posx() {
+            return this.sprite.position.x;
+        },
+
+        get posy() {
+            return this.sprite.position.y;
+        },
+
         disable() {
             this.sprite.visible = false;
             this.disabled = true;
@@ -401,7 +409,7 @@ export function makePlayer(p, Map) { //Receive map object
 
         collectCoin(player, coin) {
             coinCount++;
-            console.log(coinCount);
+            //console.log(coinCount);
             coin.remove();
         }
 
