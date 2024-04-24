@@ -66,11 +66,14 @@ export function makeSpell(p, type) {
 
         cast(x, y, type) {
             if (type == 0) {
-                this.fireball(x, y);
+                let projectile = this.fireball(x, y);
+                spells.push(projectile);
             } else if (type == 1) {
-                this.electric(x, y);
+                let projectile = this.electric(x, y);
+                spells.push(projectile);
             } else if (type == 2) {
-                this.angleshot(x, y);
+                let projectile = this.angleshot(x, y);
+                spells.push(projectile);
             }
         },
 
