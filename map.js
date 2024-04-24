@@ -112,17 +112,17 @@ export function map(p) {
                 } else if (!this.loadOnce) {
                     this.parseLayers();
                     this.loadOnce = true;
-                    this.Enemy.spawn(630, 282);
+                    //this.Enemy.spawn(630, 282);
 
-                    this.Enemy.spawn(160, 616);
-                    this.Enemy.spawn(466, 616);
-                    this.Enemy.spawn(811, 616);
-                    this.Enemy.spawn(1129, 616);
-                    this.Enemy.spawn(1375, 616);
-                    this.Enemy.spawn(955, 253);
-                    this.Enemy.spawn(1123, 253);
-                    this.Enemy.spawn(1333, 196);
-                    this.Enemy.spawn(1252, 196);
+                    //this.Enemy.spawn(160, 616);
+                    //this.Enemy.spawn(466, 616);
+                    //this.Enemy.spawn(811, 616);
+                    //this.Enemy.spawn(1129, 616);
+                    //this.Enemy.spawn(1375, 616);
+                    //this.Enemy.spawn(955, 253);
+                    //this.Enemy.spawn(1123, 253);
+                    //this.Enemy.spawn(1333, 196);
+                    //this.Enemy.spawn(1252, 196);
 
 
                 } else {
@@ -201,3 +201,4 @@ export function map(p) {
 
 
 };
+
