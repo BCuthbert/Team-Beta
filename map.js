@@ -100,7 +100,7 @@ export function map(p) {
                     w.enable();
                     this.state.changeState(1);
                     this.notMenu = true;
-                    console.log('width: ' + this.mapPixelWidth)
+                    //console.log('width: ' + this.mapPixelWidth)
                 })
 
 
@@ -201,4 +201,3 @@ export function map(p) {
 
 
 };
-
