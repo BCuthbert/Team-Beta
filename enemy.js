@@ -1,3 +1,5 @@
+
+
 import { makeSpell } from "./attacks.js";
 
 export function enemy(p) {
@@ -42,7 +44,9 @@ export function enemy(p) {
 
         behavior(wizard) {
             for (let i = 0; i < this.enemies.length; i++) {
-                this.enemies[i].moveTo(wizard.posx, wizard.posy, 2);
+                if (p.millis() % 2 == 0) { 
+                    this.enemies[i].moveTo(wizard.posx, wizard.posy, 2);
+                }
                 //console.log('enemies length: ' + this.enemies.length);
 
                 if (this.enemies[i].overlaps(wizard.sprite)) {
