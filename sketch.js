@@ -41,7 +41,7 @@ new p5((p) => {
 
     p.draw = () => {
         // p.ambientLight(50);
-
+        p.frameRate(35);
         p.camera.on();          // turns camera on (required for coinCount overlay)
 
         p.clear();
@@ -51,7 +51,7 @@ new p5((p) => {
         Enemy.behavior(Wizard);
         Wizard.sprite.overlaps(Coin.coins, Wizard.collectCoin);
         // console.log('millis: ' + p.millis());
-        if (Coin.coins.length < 10 && Map.notMenu == true) {
+        if (Coin.coins.length < 15 && Map.notMenu == true) {
             // Coin.createCoin(Math.floor(Math.random() * 1486), Math.floor(Math.random() * 718));
             Coin.createCoin(Coin.randomInterval(50, 1486), Coin.randomInterval(75, 718));
         }
