@@ -44,16 +44,16 @@ export function enemy(p) {
 
         behavior(wizard) {
             for (let i = 0; i < this.enemies.length; i++) {
-                if (p.millis() % 2 == 0) { 
+                if (p.millis() % 2 == 0) {
                     this.enemies[i].moveTo(wizard.posx, wizard.posy, 2);
                 }
                 //console.log('enemies length: ' + this.enemies.length);
 
-                if (this.enemies[i].overlaps(wizard.sprite)) {
+                if (this.enemies[i].overlaps(wizard.sprite) && !wizard.GDLMode) {
                     wizard.die();
                 }
 
-                for (let j = 0; j < wizard.spells.length; j++ ) {
+                for (let j = 0; j < wizard.spells.length; j++) {
                     if (this.enemies[i].overlaps(wizard.spells[j].spellSprite)) {
                         this.enemies[i].life = 0;
                     }

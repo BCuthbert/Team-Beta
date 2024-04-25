@@ -17,6 +17,7 @@ export function map(p) {
         wallChunks: [],
         state: new GameState(p),
         btnref: p.createButton("Begin Quest"),
+        GDLbtn: p.createButton("Greg DeLozier Mode"),
         levelLoaded: false,
         loadOnce: false,
         Enemy: new enemy(p),
@@ -28,6 +29,7 @@ export function map(p) {
             this.tilesetsInfo.push(p.loadImage('assets/Maps/Dungeon tileset.png'));
             if (this.state.getState() == 'menu') {
                 this.btnref.style("background-color", "#ff5959");
+                this.GDLbtn.style("background-color", "#ff5959");
             }
         },
 
@@ -86,22 +88,47 @@ export function map(p) {
                 p.textAlign(p.CENTER);
                 var txtref = p.text("The Wizard's Quest", 50, -50);
                 this.btnref.position(p.width / 2, p.height / 2);
+
+
+                this.GDLbtn.position(p.width / 2 - 22, p.height / 2 + 50);
+                this.GDLbtn.style("border-radius", "20%");
+                this.GDLbtn.style("padding-top", "10px");
+                this.GDLbtn.style("padding-bottom", "10px");
+
                 this.btnref.style("border-radius", "20%");
                 this.btnref.style("padding-top", "10px");
                 this.btnref.style("padding-bottom", "10px");
                 this.btnref.mouseOver(() => {
                     this.btnref.style("background-color", "white");
-                })
+                });
                 this.btnref.mouseOut(() => {
                     this.btnref.style("background-color", "#ff5959");
                 });
+
+                this.GDLbtn.mouseOver(() => {
+                    this.GDLbtn.style("background-color", "white");
+                });
+                this.GDLbtn.mouseOut(() => {
+                    this.GDLbtn.style("background-color", "#ff5959");
+                });
+
+
                 this.btnref.mouseClicked(() => {
                     this.btnref.remove();
+                    this.GDLbtn.remove();
                     w.enable();
                     this.state.changeState(1);
                     this.notMenu = true;
                     //console.log('width: ' + this.mapPixelWidth)
-                })
+                });
+                this.GDLbtn.mouseClicked(() => {
+                    this.GDLbtn.remove();
+                    this.btnref.remove();
+                    w.enable();
+                    this.state.changeState(1);
+                    w.GDLMode = true;
+                    this.notMenu = true;
+                });
 
 
             } else {
