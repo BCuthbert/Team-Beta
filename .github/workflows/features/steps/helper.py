@@ -9,7 +9,7 @@ import time
 def begin_game(context):
   context.driver = webdriver.Chrome(); 
   context.driver.get('https://bcuthbert.github.io/Team-Beta/')
-  start_button = context.driver.find_element(By.XPATH, "/html/body/button")
+  start_button = context.driver.find_element(By.XPATH, "/html/body/button[2]") 
   time.sleep(2)
   start_button.click()
   return context

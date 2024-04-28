@@ -1,0 +1,42 @@
+classDiagram
+
+class Player{
+    +sprite
+    +currentAnimation
+    +animations []
+    +speed int
+    +isDead bool
+    +health int
+    +spells []
+    +attackMode int
+    +invincible bool 
+    +camOffset int
+    +inventory
+    +map Map 
+    +disabled bool 
+    +GDLMode bool
+    +draw()
+    +posx()
+    +posy()
+    +preload()
+    +die()
+    +respawn()
+    +loadAnimations()
+    +moveRight()
+    +moveLeft()
+    +moveUp()
+    +moveDown()
+    +normalize()
+    +isMoving()
+    +stopMovementX()
+    +stopMovementY()
+    +movement()
+    +die()
+    +respawn()
+    +teleport()
+    +shield()
+    +deleteSpell(int)
+    +collectCoin(player, coin)
+    
+
+}

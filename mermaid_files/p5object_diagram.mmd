@@ -1,0 +1,59 @@
+classDiagram
+class p5{
+    -Map
+    -Wizard
+    -Overlay
+    -Coin 
+    -Enemy
+    -WindowWidth
+    -WindowHeight
+    +preload()
+    +setup()
+    +draw()
+    +windowResize()
+    +background()
+}
+
+class Wizard{
+    +spells []
+    +preload()
+    +draw()
+    +overlaps(coins, CollectCoin)
+    +CollectCoin()
+}
+
+class Map{
+    +preload()
+    +setup()
+    +draw(Wizard)
+}
+
+class Enemy{
+    +enemies []
+    +preload()
+    +setup()
+    +behavior(Wizard)
+    +spawn(int, int)
+}
+
+class Overlay{
+    +setup();
+    +draw();
+}
+
+class Coin{
+    +coins []
+    +randomInterval(int, int)
+    +setup()
+    +createCoin(int, int)
+}
+
+p5<.. Wizard : uses
+p5<.. Map : uses
+p5<.. Enemy : uses
+p5<.. Coin : uses
+p5<.. Overlay : uses
+Enemy -- Wizard
+Wizard -- Map 
+Wizard -- Coin
+Coin -- Overlay
