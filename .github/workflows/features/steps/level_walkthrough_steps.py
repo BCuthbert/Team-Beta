@@ -20,11 +20,11 @@ def step_impl(context):
   key_press(context, 's', 1)
   key_press(context, 'd', 1)
   key_press(context, 's', 2)
-  key_press(context, 'd', 2)
-  key_press(context, 'w', 0.5)
   key_press(context, 'd', 0.5)
   key_press(context, 'w', 0.5)
-  key_press(context, 'd', 0.5)
+  key_press(context, 'd', 1)
+  key_press(context, 'w', 0.5)
+  key_press(context, 'd', 1.3)
 
 @then('I should be able to walk from the spawn point to the next room')
 def step_impl(context):
