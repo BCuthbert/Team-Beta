@@ -16,7 +16,7 @@ export function enemy(p) {
             this.enemies = new p.Group();
             this.enemies.collider = 'none';
             this.enemies.scale = 2;
-            this.enemies.debug = true;
+            this.enemies.debug = false;
             console.log(p.minute());
         },
 
