@@ -14,51 +14,9 @@ export function makeSpell(p, type) {
         spellSprite: null,
         spellAnims: {},
         lifeSpan: 100,
-        currentAngle: null,
         angles: [],
         camOffset: cameraOffset,
-        angleProjectileRef: null,
-        angleEnabled: true,
         alreadyCollided: false,
-
-        // need draw to check collisions between angleshot and angles
-        draw(x, y) {
-
-            if (this.angles.length == 2) {
-                p.stroke(0);
-                p.line(x, y, this.angles[0].position.x, this.angles[0].position.y);
-                p.line(this.angles[0].position.x, this.angles[0].position.y, this.angles[1].position.x, this.angles[1].position.y);
-            } else if (this.angles.length == 1) {
-                p.stroke(0);
-                p.drawingContext.setLineDash([20, 20]);
-                // console.log("HERE");
-                p.line(x, y, this.angles[0].position.x, this.angles[0].position.y);
-            }
-
-            if (this.angleProjectileRef != null) {
-
-
-                if (this.angleProjectileRef.overlaps(this.angles[0])) {
-                    this.angleProjectileRef.vel.x = this.angles[1].position.x - this.angles[0].position.x;
-                    this.angleProjectileRef.vel.y = this.angles[1].position.y - this.angles[0].position.y;
-                    this.angleProjectileRef.vel.normalize().mult(this.spellSpeed);
-                    this.alreadyCollided = true;
-                }
-                if (this.angleProjectileRef.overlaps(this.angles[1]) && this.alreadyCollided) {
-                    this.angleProjectileRef.remove();
-                    this.angleProjectileRef = null;
-
-                    this.angleEnabled = true;
-                    this.currentAngle = null;
-                    this.angles[0].remove();
-                    this.angles[1].remove();
-                    this.angles = [];
-                    this.alreadyCollided = false;
-                }
-
-
-            }
-        },
 
         setup() {
             this.loadAnimations();
@@ -71,69 +29,70 @@ export function makeSpell(p, type) {
             } else if (type == 1) {
                 let projectile = this.electric(x, y);
                 spells.push(projectile);
-            } else if (type == 2) {
-                let projectile = this.angleshot(x, y);
-                spells.push(projectile);
-            }
-        },
-
-        angleshot(x, y) {
-            if (this.angleEnabled) {
-                this.currentAngle = new p.Sprite((p.mouseX - p.width / 2) / this.camOffset + x, (p.mouseY - p.height / 2) / this.camOffset + y);
-                this.currentAngle.color = "red";
-                this.currentAngle.stroke = "black";
-                this.currentAngle.diameter = 11 / this.camOffset;
-                this.currentAngle.collider = "none";
-                this.angles.push(this.currentAngle);
-            }
-
-            if (this.angles.length == 2 && this.angleEnabled) {
-                this.angleEnabled = false;
-                this.angleProjectileRef = new p.Sprite(x, y, 20);
-                this.angleProjectileRef.addAni(this.spellAnims.angleAnim);
-                this.angleProjectileRef.scale = 0.2;
-                this.angleProjectileRef.debug = true;
-                this.angleProjectileRef.collider = 'none';
-
-                this.angleProjectileRef.vel.x = this.angles[0].position.x - x;
-                this.angleProjectileRef.vel.y = this.angles[0].position.y - y;
-                this.angleProjectileRef.vel.normalize().mult(this.spellSpeed);
             }
 
         },
 
         electric(x, y) {
+
+            // create electric sprite at x, y position, with length 80 height 20
             this.spellSprite = new p.Sprite(x, y, 80, 20);
+
+            // scale down the sprite
             this.spellSprite.scale = 0.7;
+
+            // add offset so electric does not spawn directly on top of player when casted.
             this.spellSprite.offset.x = 40;
+
+            // collider = none so it doesnt move player when casted
             this.spellSprite.collider = "none";
+
             this.spellSprite.addAni(this.spellAnims.electric);
+
+            // set anglemode to radians, to rotate it away from the player when casted
             p.angleMode(p.RADIANS);
             this.spellSprite.rotation = Math.atan2(p.mouseY - p.height / 2, p.mouseX - p.width / 2);
+
+            // Add velocity toward mouse, away from player
             this.spellSprite.vel.y = p.mouseY - p.height / 2;
             this.spellSprite.vel.x = p.mouseX - p.width / 2;
+
+            // normalize speed toward mouse
             this.spellSprite.vel.normalize().mult(this.spellSpeed);
             this.spellSprite.life = this.lifeSpan;
 
         },
 
         fireball(x, y) {
+
+            // create fireball sprite at x, y position, with radius of 35
             this.spellSprite = new p.Sprite(x, y, 35);
+
+            // add offset so fireball does not spawn directly on top of player when casted.
             this.spellSprite.offset.x = 15;
+
+            // collider = none so it doesnt move player when casted
             this.spellSprite.collider = "none";
+
             this.spellSprite.addAni(this.spellAnims.fireball);
+
+            // set anglemode to radians, to rotate it away from the player when casted
             p.angleMode(p.RADIANS);
             this.spellSprite.rotation = Math.atan2(p.mouseY - p.height / 2, p.mouseX - p.width / 2);
+
+            // Add velocity toward mouse, away from player
             this.spellSprite.vel.y = p.mouseY - p.height / 2;
             this.spellSprite.vel.x = p.mouseX - p.width / 2;
+
+            // normalize speed toward the mouse.
             this.spellSprite.vel.normalize().mult(this.spellSpeed);
             this.spellSprite.life = this.lifeSpan;
-            this.spellSprite.id = 10;
         },
 
 
 
         loadAnimations() {
+            // Load all spell animations
             this.spellAnims.fireball = p.loadAnimation(
                 'assets/fireball/FB001.png',
                 'assets/fireball/FB002.png',
@@ -149,14 +108,6 @@ export function makeSpell(p, type) {
                 "assets/electric/tile4.png"
             );
             this.spellAnims.electric.frameDelay = 20;
-
-            this.spellAnims.angleAnim = p.loadAnimation(
-                "assets/tile001.png",
-                "assets/tile002.png",
-                "assets/tile003.png",
-                "assets/tile004.png"
-            );
-            this.spellAnims.angleAnim.frameDelay = 15;
         },
 
     };
