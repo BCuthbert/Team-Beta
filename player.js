@@ -56,12 +56,12 @@ export function makePlayer(p, Map) { //Receive map object
 
                     }
                 }
-                if (p.kb.presses('t')) {
+                if (p.kb.presses('e')) {
 
                     this.teleport();
 
                 }
-                if (p.kb.presses('i')) {
+                if (p.kb.presses('q')) {
 
                     this.shield();
 
@@ -309,18 +309,27 @@ export function makePlayer(p, Map) { //Receive map object
             this.health = 1;
             this.sprite.position.set(25, 25);
             this.sprite.changeAni(this.animations.idle);
+            coinCount = 0;  // Reset coin count to 0 on respawn
         },
+        
 
         teleport() {
-            this.sprite.changeAni(this.animations.teleport);
-            this.sprite.animation.frame = 0;
-            this.sprite.animation.play();
-            this.sprite.animation.looping = false;
-            //actual teleport
-            setTimeout(() => { this.sprite.position.set(Math.floor(Math.random() * 401), Math.floor(Math.random() * 401), 1000); this.sprite.animation.play(); }, 750);
-
-            //automatially change to idle anim if player does not move 
-            setTimeout(() => this.sprite.changeAni(this.animations.idle), 1500);
+            if (coinCount >= 2) {  // Check if there are enough coins
+                this.sprite.changeAni(this.animations.teleport);
+                this.sprite.animation.frame = 0;
+                this.sprite.animation.play();
+                this.sprite.animation.looping = false;
+                
+                // Actual teleport
+                setTimeout(() => {
+                    this.sprite.position.set(Math.floor(Math.random() * 1536), Math.floor(Math.random() * 768));
+                    this.sprite.animation.play(); 
+                    coinCount -= 2;  // Deduct coins after teleporting
+                }, 750);
+        
+                // Automatically change to idle animation if player does not move
+                setTimeout(() => this.sprite.changeAni(this.animations.idle), 1500);
+            }
         },
 
         shield() {

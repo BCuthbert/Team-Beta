@@ -12,8 +12,8 @@ export function overlay(p) {
                 'Hold o to activate golem behavior (must be holding for attacks to effect them)\n' +
                 'Press y to die\n' +
                 'Press r to respawn\n' +
-                'Press t to teleport\n' +
-                'Press i for shield');
+                'Press e to teleport\n' +
+                'Press q for shield');
         },
 
         loadAnimations() {

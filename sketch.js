@@ -7,7 +7,7 @@ import { makePlayer } from "./player.js";
 import { overlay } from "./overlay.js";
 import { coin } from "./coin.js";
 import { enemy } from "./enemy.js";
-
+import { coinCount } from './player.js';
 
 
 new p5((p) => {
@@ -61,6 +61,9 @@ new p5((p) => {
         if (Enemy.enemies.length < 3 && Map.notMenu == true) {
             Enemy.spawn(Coin.randomInterval(50, 1486), Coin.randomInterval(75, 718));
         }
+        if (coinCount >= 50) {
+            endGame(p);
+        }
 
         p.camera.off();         // turns camera off before drawing overlay so that it moves with player 
         Overlay.draw();
@@ -70,6 +73,21 @@ new p5((p) => {
 
     p.windowResized = () => {
         p.resizeCanvas(p.windowWidth, p.windowHeight);
+    }
+
+    function endGame(p) {
+        p.noLoop();
+    
+        const centerX = p.camera.position.x;
+        const centerY = p.camera.position.y;
+    
+        p.fill('rgba(0,0,0,0.8)');
+        p.rect(centerX - p.width / 2, centerY - p.height / 2, p.width, p.height);
+    
+        p.fill(255);
+        p.textSize(32);
+        p.textAlign(p.CENTER, p.CENTER);
+        p.text("Your coin collecting skills are impressive! Task completed!", centerX, centerY + 50);
     }
 })
 
