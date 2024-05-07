@@ -87,6 +87,10 @@ export function map(p) {
                 p.textSize(30);
                 p.textAlign(p.CENTER);
                 var txtref = p.text("The Wizard's Quest", 50, -50);
+                // change the size of the text for the text box
+                p.textSize(10);
+                // explanation of the game
+                var txtref2 = p.text("Objective: Collect 50 coins before the enemies get you!", 50, -20);
                 this.btnref.position(p.width / 2, p.height / 2);
 
 
