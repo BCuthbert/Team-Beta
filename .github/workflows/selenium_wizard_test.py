@@ -58,8 +58,6 @@ def test_basic_attacks():
 #test attacks 
   attack()
   key_press('1', 0.1)
-  attack()
-  key_press('1', 0.1)
   attack() 
   time.sleep(0.5)
 

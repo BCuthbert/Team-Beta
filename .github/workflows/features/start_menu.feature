@@ -8,6 +8,3 @@ Feature: Start Game from Main Menu
   Given The website has loaded and the Start Menu is visible
   When I click the Begin Adventure button 
   Then the Start Menu should disappear and the first level should become visible 
-
-
-

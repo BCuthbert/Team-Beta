@@ -123,7 +123,6 @@ export function map(p) {
                     w.enable();
                     this.state.changeState(1);
                     this.notMenu = true;
-                    //console.log('width: ' + this.mapPixelWidth)
                 });
                 this.GDLbtn.mouseClicked(() => {
                     this.GDLbtn.remove();
@@ -143,19 +142,6 @@ export function map(p) {
                 } else if (!this.loadOnce) {
                     this.parseLayers();
                     this.loadOnce = true;
-                    //this.Enemy.spawn(630, 282);
-
-                    //this.Enemy.spawn(160, 616);
-                    //this.Enemy.spawn(466, 616);
-                    //this.Enemy.spawn(811, 616);
-                    //this.Enemy.spawn(1129, 616);
-                    //this.Enemy.spawn(1375, 616);
-                    //this.Enemy.spawn(955, 253);
-                    //this.Enemy.spawn(1123, 253);
-                    //this.Enemy.spawn(1333, 196);
-                    //this.Enemy.spawn(1252, 196);
-
-
                 } else {
 
                     p.background("#666666");
@@ -184,14 +170,12 @@ export function map(p) {
             // Due to loadJSON having to parse a large file, it needs to be asynchronous,
             // and needs to return a promise to fulfill the variable, rather than just the variable.
 
-
             return new Promise((resolve) => {
                 resolve(p.loadJSON(fileRef));
             });
         },
 
         parseLayers() {
-            // console.log(this.tiles);
             var tmpTileset = this.tilesetsInfo[0];
             this.mapData.layers.forEach(layer => {
                 let isWallLayer = layer.name === 'wall';

@@ -77,13 +77,13 @@ new p5((p) => {
 
     function endGame(p) {
         p.noLoop();
-    
+
         const centerX = p.camera.position.x;
         const centerY = p.camera.position.y;
-    
+
         p.fill('rgba(0,0,0,0.8)');
         p.rect(centerX - p.width / 2, centerY - p.height / 2, p.width, p.height);
-    
+
         p.fill(255);
         p.textSize(32);
         p.textAlign(p.CENTER, p.CENTER);

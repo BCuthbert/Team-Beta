@@ -27,17 +27,15 @@ export function makePlayer(p, Map) { //Receive map object
             p.camera.on();
             p.camera.x = this.sprite.position.x;
             p.camera.y = this.sprite.position.y;
-            p.camera.zoom = this.camOffset;
 
-            this.spell.draw(this.sprite.position.x, this.sprite.position.y);
+            // change camera zoom so player does not appear too small
+            p.camera.zoom = this.camOffset;
 
             if (!this.isDead && !this.disabled) {
                 // if player, is dead, they cannot cast, die again, move, or teleport
                 this.movement();
                 if (p.kb.presses('y')) {
-
                     this.die();
-
                 }
 
                 if (p.mouse.presses()) {
@@ -49,8 +47,7 @@ export function makePlayer(p, Map) { //Receive map object
                 if (p.kb.presses('1')) {
                     // switch attack mode (to be changed to keybinds later)
                     this.attackMode++;
-                    // console.log(`X: ${this.sprite.position.x}, Y: ${this.sprite.position.y}`);
-                    if (this.attackMode > 2) {
+                    if (this.attackMode > 1) {
 
                         this.attackMode = 0;
 
@@ -129,6 +126,8 @@ export function makePlayer(p, Map) { //Receive map object
         },
 
         loadAnimations() {
+            // load all player animations
+
             this.animations.idle = p.loadAnimation("assets/idleAnimSheet.png",
                 { frameSize: [32, 32], frames: 2 });
             this.animations.idle.frameDelay = 18;     // slows down idle animation
@@ -311,7 +310,7 @@ export function makePlayer(p, Map) { //Receive map object
             this.sprite.changeAni(this.animations.idle);
             coinCount = 0;  // Reset coin count to 0 on respawn
         },
-        
+
 
         teleport() {
             if (coinCount >= 2) {  // Check if there are enough coins
@@ -319,14 +318,14 @@ export function makePlayer(p, Map) { //Receive map object
                 this.sprite.animation.frame = 0;
                 this.sprite.animation.play();
                 this.sprite.animation.looping = false;
-                
+
                 // Actual teleport
                 setTimeout(() => {
                     this.sprite.position.set(Math.floor(Math.random() * 1536), Math.floor(Math.random() * 768));
-                    this.sprite.animation.play(); 
+                    this.sprite.animation.play();
                     coinCount -= 2;  // Deduct coins after teleporting
                 }, 750);
-        
+
                 // Automatically change to idle animation if player does not move
                 setTimeout(() => this.sprite.changeAni(this.animations.idle), 1500);
             }
