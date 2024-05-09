@@ -61,7 +61,7 @@ new p5((p) => {
         if (Enemy.enemies.length < 3 && Map.notMenu == true) {
             Enemy.spawn(Coin.randomInterval(50, 1486), Coin.randomInterval(75, 718));
         }
-        if (coinCount >= 10) {
+        if (coinCount >= 50) {
             endGame(p);
         }
 
